@@ -1,0 +1,25 @@
+server:
+  port: 8083
+  servlet:
+    context-path: "/limit-app"
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/limitdb
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  flyway:
+    enabled: true
+    schemas: limitdb
+
+limit:
+  default-value: 10000
+  reset-cron: 0 0 0 * * ?
