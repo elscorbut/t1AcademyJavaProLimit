@@ -15,8 +15,6 @@ public class LimitResetScheduler {
 
     @Scheduled(cron = "${limit.reset-cron}")
     public void resetAllLimits() {
-        log.info("Starting limit reset for all users...");
         limitService.resetAllLimits();
-        log.info("Limit reset completed.");
     }
 }

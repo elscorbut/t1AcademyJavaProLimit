@@ -1,6 +1,7 @@
 package ru.academy.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.academy.config.LimitProperties;
@@ -14,6 +15,7 @@ import ru.academy.exception.UserNotFoundException;
 import ru.academy.mapper.LimitMapper;
 import ru.academy.repository.LimitRepository;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class LimitService {
@@ -54,21 +56,14 @@ public class LimitService {
 
     @Transactional
     public void resetAllLimits() {
+        log.info("Starting limit reset for all users...");
         limitRepository.resetAllLimits(limitProperties.getDefaultValue());
-    }
-
-    public void setDefaultLimit(Double defaultValue) {
-        validateValue(defaultValue, "The default limit must be greater than zero");
-        limitProperties.setDefaultValue(defaultValue);
+        log.info("Limit reset completed.");
     }
 
     private void validateLimitChange(Double limitChange) {
-        validateValue(limitChange, "The limit change value must be greater than zero");
-    }
-
-    private void validateValue(Double value, String errorMessage) {
-        if (value == null || value < 0) {
-            throw new IllegalLimitValueException(errorMessage);
+        if (limitChange == null || limitChange < 0) {
+            throw new IllegalLimitValueException("The limit change value must be greater than zero");
         }
     }
 }

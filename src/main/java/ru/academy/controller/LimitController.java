@@ -23,8 +23,8 @@ public class LimitController {
         return limitService.restoreLimit(limitChangeDetails);
     }
 
-    @PostMapping("/default")
-    public void setDefaultLimit(@RequestParam Double defaultLimit) {
-        limitService.setDefaultLimit(defaultLimit);
+    @PostMapping("/reset")
+    public void resetAllLimits() {
+        limitService.resetAllLimits();
     }
 }
